@@ -1,0 +1,5 @@
+"VID","0xdead"
+"PID","0xbeef"
+"BOOT_PID","0xb00a"
+"BOOT_VID","0x1aea"
+"vid_xfer_type","isoc"

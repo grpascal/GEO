@@ -1,0 +1,29 @@
+## Compiling mxview
+mxview is Maxim's UVC player. It works with any UVC compatible camera and 
+supports our extensions. The dependencies to compile it are:
+  * yasm
+  * libjpeg/libjpeg-devel
+  * gtk2/gtk2-devel (fedora) or libgtk2/libgtk2-devel (ubuntu)
+  * readline/readline-devel
+  * libpng/libpng-devel
+  * libxv/libxv-devel
+  * alsa-lib/alsa-lib-devel (fedora) or libasound2/libasound2-dev (ubuntu)
+  * an internet connection (to download ffmpeg and lua source code)
+
+Just enter mxview directory and type make.
+
+# Using mxview
+Once mxview is compiled, to use it run:
+	./mxview -d /dev/videoX
+where videoX is the device node created for your camera.
+
+Without -d mxview will use /dev/video0
+
+# Using mxview with Maxim's skypecam
+In order to get the AVC stream from Maxim's skypecam you first need to install 
+Maxim's host uvc driver.
+
+Also when you plug a skypecam, two device nodes are created in /dev:
+ * the first one is for the main HD AVC stream
+ * the second is for the SD preview stream (can be RAW YUV, MJPG or AVC)
+

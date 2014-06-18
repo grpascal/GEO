@@ -1,0 +1,4 @@
+"BOOTMODE","usb"
+"hostname","board"
+"ethaddr","FF:FF:FF:FF:FF:FF"
+"ipaddr","0.0.0.0"

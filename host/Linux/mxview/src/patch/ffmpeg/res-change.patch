@@ -1,0 +1,49 @@
+Don't release the input rbsp buffer during resolution change. This is wrong
+since it can cause the stream looks like garbage to decoder after resolution
+change
+
+--- libavcodec/h264.c.prev	2010-11-30 17:55:51.917258304 -0800
++++ libavcodec/h264.c	2010-11-30 17:56:03.454048211 -0800
+@@ -676,6 +676,33 @@
+     }
+ }
+ 
++static void free_tables_NotRbsp(H264Context *h){
++      int i;
++      H264Context *hx;
++      av_freep(&h->intra4x4_pred_mode);
++      av_freep(&h->chroma_pred_mode_table);
++      av_freep(&h->cbp_table);
++      av_freep(&h->mvd_table[0]);
++      av_freep(&h->mvd_table[1]);
++      av_freep(&h->direct_table);
++      av_freep(&h->non_zero_count);
++      av_freep(&h->slice_table_base);
++      h->slice_table= NULL;
++      av_freep(&h->list_counts);
++
++      av_freep(&h->mb2b_xy);
++      av_freep(&h->mb2br_xy);
++
++      for(i = 0; i < MAX_THREADS; i++) {
++         hx = h->thread_context[i];
++         if(!hx) continue;
++         av_freep(&hx->top_borders[1]);
++         av_freep(&hx->top_borders[0]);
++         av_freep(&hx->s.obmc_scratchpad);
++         if (i) av_freep(&h->thread_context[i]);
++    }
++}
++
+ static void init_dequant8_coeff_table(H264Context *h){
+     int i,q,x;
+     const int transpose = (h->h264dsp.h264_idct8_add != ff_h264_idct8_add_c); //FIXME ugly
+@@ -1802,7 +1829,7 @@
+             || av_cmp_q(h->sps.sar, s->avctx->sample_aspect_ratio))) {
+         if(h != h0)
+             return -1;   // width / height changed during parallelized decoding
+-        free_tables(h);
++        free_tables_NotRbsp(h);
+         flush_dpb(s->avctx);
+         MPV_common_end(s);
+     }

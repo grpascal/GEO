@@ -1,0 +1,19 @@
+mxcam is a host application capable of detecting, talking and initiating 
+firmware upload to Maxim USB devices.
+
+mxcam is split into two parts:
+ * libmxcam: contains all the library functions.
+ * mxcam.c: contains the code for the command line interface. This code 
+   calls the functions from libmxcam to do the real work.
+
+libusb is included since libmxcam depends on it.
+
+If you need to port mxcam capabilties to your platform application, you just 
+need to (cross)compile libusb and libmxcam.
+
+# Compiling mxcam on x86
+The provided Makefiles are for x86. You just need to run: 
+	make
+
+# Compiling on other architectures
+Modify the Makefiles to your needs.

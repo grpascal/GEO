@@ -1,0 +1,6 @@
+"BOOTMODE","usb"
+"hostname","board"
+"ethaddr","FF:FF:FF:FF:FF:FF"
+"ipaddr","0.0.0.0"
+"BOARD", "bezelcam1"
+"FLIP", "0"

@@ -1,0 +1,7 @@
+"BOOTMODE","usb"
+"hostname","board"
+"ethaddr","FF:FF:FF:FF:FF:FF"
+"ipaddr","0.0.0.0"
+"BOARD", "skypecam1"
+"FLIP", "0"
+"BF", "0"
